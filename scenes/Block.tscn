@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3e4f5g6h7i8j"]
+
+[ext_resource type="Script" uid="uid://bneficpxn2fa8" path="res://scripts/Block.gd" id="1_1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(80, 30)
+
+[node name="Block" type="StaticBody2D"]
+position = Vector2(563, 29)
+script = ExtResource("1_1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -15.0
+offset_right = 40.0
+offset_bottom = 15.0
+color = Color(1, 0.5, 0.5, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")

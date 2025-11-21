@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7d8faf0g1h2i"]
+
+[ext_resource type="Script" uid="uid://cbtphentfoc5" path="res://scripts/Ball.gd" id="1_1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+
+[node name="Ball" type="CharacterBody2D"]
+position = Vector2(-2, 0)
+script = ExtResource("1_1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
