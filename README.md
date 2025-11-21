@@ -118,6 +118,10 @@ O projeto é um clone do clássico jogo Breakout, focado em:
 - Experiência de jogo fluida
 - Código limpo e bem documentado
 
+## Exportação e Publicação
+
+Para informações sobre como exportar o jogo para diferentes plataformas (Windows, Linux, Web, etc.) e onde publicá-lo, consulte o arquivo [GUIA_EXPORTACAO.md](GUIA_EXPORTACAO.md).
+
 ## Contribuindo
 
 Contribuições são bem-vindas. Sinta-se à vontade para reportar bugs, sugerir melhorias ou enviar pull requests.

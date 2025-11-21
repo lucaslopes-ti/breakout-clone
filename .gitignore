@@ -1,3 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+TUTORIAL_C_SHARP_GUIDE.tex
+TUTORIAL_C_SHARP.md
+.gitignore
+GUIA_EXPORTACAO.md
+TUTORIAL_C_SHARP.tex
