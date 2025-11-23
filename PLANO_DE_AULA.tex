@@ -1,0 +1,1329 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{fontawesome5}
+
+% Configuração de página
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=3cm,
+    bottom=3cm
+}
+
+% Cores personalizadas
+\definecolor{primaryblue}{RGB}{41, 128, 185}
+\definecolor{secondaryblue}{RGB}{52, 152, 219}
+\definecolor{accentgreen}{RGB}{39, 174, 96}
+\definecolor{accentorange}{RGB}{230, 126, 34}
+\definecolor{accentred}{RGB}{231, 76, 60}
+\definecolor{lightgray}{RGB}{236, 240, 241}
+\definecolor{darkgray}{RGB}{44, 62, 80}
+\definecolor{codebg}{RGB}{248, 249, 250}
+
+% Configuração de código
+\lstset{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{accentgreen},
+    keywordstyle=\color{primaryblue}\bfseries,
+    stringstyle=\color{accentred},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{lightgray}
+}
+
+% Definição de linguagens
+\lstdefinelanguage{GDScript}{
+    keywords={extends, func, var, if, elif, else, for, while, return, class, signal, onready, export},
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{CSharp}{
+    keywords={using, namespace, class, public, private, protected, static, void, int, float, bool, string, var, if, else, for, while, return, override, new, async, await},
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+% Boxes personalizados
+\newtcolorbox{theorybox}{
+    colback=primaryblue!10,
+    colframe=primaryblue,
+    title={\faBook\ Teoria},
+    fonttitle=\bfseries,
+    rounded corners=5pt,
+    boxrule=1pt
+}
+
+\newtcolorbox{exercisebox}{
+    colback=accentgreen!10,
+    colframe=accentgreen,
+    title={\faDumbbell\ Exercício Prático},
+    fonttitle=\bfseries,
+    rounded corners=5pt,
+    boxrule=1pt
+}
+
+\newtcolorbox{tipbox}{
+    colback=accentorange!10,
+    colframe=accentorange,
+    title={\faLightbulb\ Dica},
+    fonttitle=\bfseries,
+    rounded corners=5pt,
+    boxrule=1pt
+}
+
+\newtcolorbox{importantbox}{
+    colback=accentred!10,
+    colframe=accentred,
+    title={\faExclamationTriangle\ Importante},
+    fonttitle=\bfseries,
+    rounded corners=5pt,
+    boxrule=1pt
+}
+
+\newtcolorbox{checklistbox}{
+    colback=secondaryblue!10,
+    colframe=secondaryblue,
+    title={\faCheckSquare\ Checklist},
+    fonttitle=\bfseries,
+    rounded corners=5pt,
+    boxrule=1pt
+}
+
+% Configuração de títulos
+\titleformat{\section}
+{\Large\bfseries\color{primaryblue}}
+{}
+{0em}
+{}[\titlerule[1pt]]
+
+\titleformat{\subsection}
+{\large\bfseries\color{secondaryblue}}
+{}
+{0em}
+{}
+
+\titleformat{\subsubsection}
+{\normalsize\bfseries\color{darkgray}}
+{}
+{0em}
+{}
+
+% Cabeçalho e rodapé
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{primaryblue}{\textbf{Plano de Aula - Breakout Clone}}}
+\fancyhead[R]{\textcolor{darkgray}{Programação de Jogos Digitais - SENAI}}
+\fancyfoot[C]{\textcolor{darkgray}{\thepage}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Configuração de hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    filecolor=primaryblue,
+    urlcolor=primaryblue,
+    citecolor=primaryblue,
+    pdftitle={Plano de Aula - Breakout Clone},
+    pdfauthor={SENAI}
+}
+
+% Comandos personalizados
+\newcommand{\module}[1]{\section*{\faGraduationCap\ #1}}
+\newcommand{\duration}[1]{\textcolor{darkgray}{\textit{Duração: #1}}}
+
+% Remover numeração de seções
+\setcounter{secnumdepth}{0}
+
+\begin{document}
+
+% Capa
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries\color{primaryblue} Plano de Aula}\\[0.5cm]
+    {\LARGE\bfseries Breakout Clone}\\[1cm]
+    
+    {\Large Programação de Jogos Digitais}\\[0.5cm]
+    {\Large SENAI}\\[2cm]
+    
+    \begin{tcolorbox}[colback=lightgray, colframe=darkgray, width=0.8\textwidth, center]
+        \centering
+        \textbf{Duração Total:} 4-6 aulas (dependendo do ritmo da turma)\\[0.5cm]
+        \textbf{Objetivo:} Desenvolver um jogo completo estilo Breakout usando Godot Engine e GDScript/C\#
+    \end{tcolorbox}
+    
+    \vfill
+    
+    \begin{tcolorbox}[colback=primaryblue!10, colframe=primaryblue, width=0.8\textwidth, center]
+        \centering
+        \faGraduationCap\ \textbf{Conteúdo do Curso}\\[0.3cm]
+        \begin{itemize}[leftmargin=*, itemsep=0.2cm]
+            \item Fundamentos de Programação e Godot Engine
+            \item Matemática e Física para Jogos
+            \item Input e Controle
+            \item Física e Colisões
+            \item Interface de Usuário (UI)
+            \item Gerenciamento de Estado
+            \item Projeto Final: Breakout Clone
+        \end{itemize}
+    \end{tcolorbox}
+    
+    \vfill
+    
+    {\large \today}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================
+% MÓDULO 1
+% ============================================
+\module{Módulo 1: Fundamentos de Programação e Godot Engine}
+\duration{1-2 aulas}
+
+\subsection{Conceitos Fundamentais de Programação}
+
+\begin{theorybox}
+\textbf{Variáveis e Tipos de Dados}
+
+As variáveis são espaços na memória que armazenam valores. No desenvolvimento de jogos, trabalhamos com diferentes tipos de dados:
+
+\begin{itemize}
+    \item \texttt{int} / \texttt{int}: Números inteiros (ex: 10, -5, 0)
+    \item \texttt{float} / \texttt{float}: Números decimais (ex: 3.14, -2.5)
+    \item \texttt{bool} / \texttt{bool}: Valores verdadeiro/falso (true/false)
+    \item \texttt{String} / \texttt{string}: Texto (ex: "Hello World")
+    \item \texttt{Vector2} / \texttt{Vector2}: Par de coordenadas (x, y)
+\end{itemize}
+\end{theorybox}
+
+\textbf{Exemplo de código:}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Declaração de Variáveis]
+# GDScript
+var score: int = 0
+var speed: float = 350.0
+var is_moving: bool = false
+var player_name: String = "Jogador"
+var position: Vector2 = Vector2(100, 200)
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - Declaração de Variáveis]
+// C#
+int score = 0;
+float speed = 350.0f;
+bool isMoving = false;
+string playerName = "Jogador";
+Vector2 position = new Vector2(100, 200);
+\end{lstlisting}
+
+\begin{theorybox}
+\textbf{Operadores Matemáticos e de Comparação}
+
+\begin{itemize}
+    \item \textbf{Operadores Matemáticos:} +, -, *, /, \%, ** (GDScript) ou Mathf.Pow() (C\#)
+    \item \textbf{Operadores de Comparação:} ==, !=, >, <, >=, <=
+\end{itemize}
+\end{theorybox}
+
+\textbf{Estruturas Condicionais:}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Condicionais]
+if score > 100:
+    print("Pontuação alta!")
+elif score > 50:
+    print("Pontuação média")
+else:
+    print("Continue tentando")
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - Condicionais]
+if (score > 100)
+{
+    GD.Print("Pontuação alta!");
+}
+else if (score > 50)
+{
+    GD.Print("Pontuação média");
+}
+else
+{
+    GD.Print("Continue tentando");
+}
+\end{lstlisting}
+
+\textbf{Loops (Repetições):}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Loops]
+# Loop for
+for i in range(10):
+    print(i)  # Imprime 0 a 9
+
+# Loop while
+var count = 0
+while count < 5:
+    print(count)
+    count += 1
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - Loops]
+// Loop for
+for (int i = 0; i < 10; i++)
+{
+    GD.Print(i);  // Imprime 0 a 9
+}
+
+// Loop while
+int count = 0;
+while (count < 5)
+{
+    GD.Print(count);
+    count++;
+}
+\end{lstlisting}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 1.1: Calculadora Simples}
+
+Crie um script que:
+\begin{itemize}
+    \item Declare duas variáveis numéricas
+    \item Realize as 4 operações básicas
+    \item Imprima os resultados
+\end{itemize}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 1.2: Verificador de Idade}
+
+Crie um script que:
+\begin{itemize}
+    \item Receba uma idade
+    \item Verifique se é maior de 18 anos
+    \item Imprima mensagens diferentes para maior/menor de idade
+\end{itemize}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 1.3: Contador}
+
+Crie um script que:
+\begin{itemize}
+    \item Use um loop para contar de 1 a 100
+    \item Imprima apenas números pares
+    \item Some todos os números e imprima o total
+\end{itemize}
+\end{exercisebox}
+
+\subsection{Introdução ao Godot Engine}
+
+\begin{theorybox}
+\textbf{O que é o Godot?}
+
+\begin{itemize}
+    \item Engine de jogos 2D e 3D gratuita e open-source
+    \item Editor visual integrado
+    \item Sistema de cenas (Scene System)
+    \item Linguagens: GDScript (nativo) e C\# (via .NET)
+\end{itemize}
+\end{theorybox}
+
+\begin{theorybox}
+\textbf{Conceitos Fundamentais do Godot}
+
+\textbf{1. Cenas (Scenes)}
+\begin{itemize}
+    \item Uma cena é uma árvore de nós (nodes)
+    \item Cada elemento do jogo é um nó
+    \item Cenas podem ser salvas e reutilizadas
+    \item Formato: \texttt{.tscn} (text scene)
+\end{itemize}
+
+\textbf{2. Nós (Nodes)}
+\begin{itemize}
+    \item Unidade básica do Godot
+    \item Cada nó tem uma função específica
+    \item Nós podem ter filhos (hierarquia)
+    \item Exemplos: \texttt{Node}, \texttt{Node2D}, \texttt{CharacterBody2D}, \texttt{StaticBody2D}, \texttt{Label}, \texttt{Button}
+\end{itemize}
+
+\textbf{3. Scripts}
+\begin{itemize}
+    \item Adicionam lógica aos nós
+    \item GDScript: \texttt{.gd}
+    \item C\#: \texttt{.cs}
+    \item Cada nó pode ter um script
+\end{itemize}
+
+\textbf{4. Sistema de Coordenadas}
+\begin{itemize}
+    \item Origem (0, 0) no canto superior esquerdo
+    \item Eixo X: aumenta da esquerda para direita
+    \item Eixo Y: aumenta de cima para baixo
+    \item Unidade: pixels
+\end{itemize}
+\end{theorybox}
+
+\begin{importantbox}
+\textbf{Funções Principais do Godot}
+
+\begin{itemize}
+    \item \texttt{\_ready()}: Chamada quando o nó entra na árvore da cena (inicialização)
+    \item \texttt{\_process(delta)}: Chamada a cada frame (lógica contínua)
+    \item \texttt{\_physics\_process(delta)}: Chamada em intervalos fixos (60 FPS por padrão) - use para física
+\end{itemize}
+\end{importantbox}
+
+\textbf{Exemplo Básico:}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Exemplo Básico]
+extends Node2D
+
+var speed: float = 100.0
+
+func _ready():
+    print("Nó inicializado!")
+    position = Vector2(100, 100)
+
+func _process(delta):
+    position.x += speed * delta
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - Exemplo Básico]
+using Godot;
+
+public partial class MyNode : Node2D
+{
+    private float speed = 100.0f;
+
+    public override void _Ready()
+    {
+        GD.Print("Nó inicializado!");
+        Position = new Vector2(100, 100);
+    }
+
+    public override void _Process(double delta)
+    {
+        Position = new Vector2(Position.X + speed * (float)delta, Position.Y);
+    }
+}
+\end{lstlisting}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 1.4: Primeira Cena}
+\begin{enumerate}
+    \item Crie uma nova cena
+    \item Adicione um nó \texttt{Node2D} como raiz
+    \item Adicione um script ao nó
+    \item No \texttt{\_ready()}, imprima "Olá, Godot!"
+    \item Execute a cena (F5)
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 1.5: Objeto em Movimento}
+\begin{enumerate}
+    \item Crie uma cena com um \texttt{CharacterBody2D}
+    \item Adicione um \texttt{CollisionShape2D} como filho
+    \item Configure uma forma de colisão retangular
+    \item Adicione um script que mova o objeto da esquerda para direita
+    \item Use \texttt{\_physics\_process()} e \texttt{move\_and\_slide()}
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 1.6: Contador Visual}
+\begin{enumerate}
+    \item Crie uma cena com um \texttt{Label}
+    \item Adicione um script que conte de 0 a 100
+    \item Atualize o texto do label a cada segundo
+    \item Use \texttt{\_process()} e controle o tempo com \texttt{delta}
+\end{enumerate}
+\end{exercisebox}
+
+% ============================================
+% MÓDULO 2
+% ============================================
+\newpage
+\module{Módulo 2: Matemática e Física para Jogos}
+\duration{1 aula}
+
+\subsection{Vetores e Coordenadas}
+
+\begin{theorybox}
+\textbf{O que é um Vetor?}
+
+\begin{itemize}
+    \item Representa direção e magnitude
+    \item Em 2D: \texttt{Vector2(x, y)}
+    \item Usado para posição, velocidade, aceleração
+\end{itemize}
+
+\textbf{Operações com Vetores:}
+
+\begin{enumerate}
+    \item \textbf{Soma:} \texttt{v1 + v2}
+    \item \textbf{Multiplicação por Escalar:} \texttt{vetor * 2}
+    \item \textbf{Normalização:} \texttt{vetor.normalized()} (comprimento 1)
+    \item \textbf{Comprimento:} \texttt{vetor.length()}
+    \item \textbf{Distância:} \texttt{ponto1.distance\_to(ponto2)}
+\end{enumerate}
+\end{theorybox}
+
+\begin{lstlisting}[language=GDScript, caption=Exemplos de Operações com Vetores]
+var v1 = Vector2(10, 20)
+var v2 = Vector2(5, -10)
+var resultado = v1 + v2  # (15, 10)
+
+var vetor = Vector2(10, 20)
+var escalado = vetor * 2  # (20, 40)
+var normalizado = vetor.normalized()
+
+var ponto1 = Vector2(0, 0)
+var ponto2 = Vector2(3, 4)
+var distancia = ponto1.distance_to(ponto2)  # 5.0
+\end{lstlisting}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 2.1: Calculadora de Vetores}
+
+Crie um script que:
+\begin{itemize}
+    \item Declare dois vetores
+    \item Calcule soma, subtração, multiplicação
+    \item Calcule distância entre eles
+    \item Normalize um vetor e mostre seu comprimento
+\end{itemize}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 2.2: Objeto Seguindo o Mouse}
+\begin{enumerate}
+    \item Crie um \texttt{CharacterBody2D}
+    \item No \texttt{\_process()}, calcule a direção do mouse
+    \item Mova o objeto em direção ao mouse
+    \item Use \texttt{get\_global\_mouse\_position()}
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 2.3: Movimento em Círculo}
+\begin{enumerate}
+    \item Crie um objeto que se mova em círculo
+    \item Use funções trigonométricas: \texttt{sin()} e \texttt{cos()}
+    \item Fórmula: \texttt{x = raio * cos(ângulo)}, \texttt{y = raio * sin(ângulo)}
+    \item Incremente o ângulo a cada frame
+\end{enumerate}
+\end{exercisebox}
+
+\subsection{Trigonometria Básica}
+
+\begin{theorybox}
+\textbf{Por que precisamos de trigonometria?}
+
+\begin{itemize}
+    \item Calcular ângulos de rebatida
+    \item Movimento em círculo
+    \item Rotação de objetos
+    \item Direção de movimento
+\end{itemize}
+
+\textbf{Funções Trigonométricas:}
+
+\begin{itemize}
+    \item \textbf{Seno (sin):} componente Y
+    \item \textbf{Cosseno (cos):} componente X
+    \item \textbf{Conversão:} 180° = π radianos, 360° = 2π (TAU)
+    \item Funções: \texttt{deg\_to\_rad()} e \texttt{rad\_to\_deg()}
+\end{itemize}
+\end{theorybox}
+
+\begin{lstlisting}[language=GDScript, caption=Exemplo: Movimento em Direção]
+# Movimento em 45 graus
+var angle = deg_to_rad(45)  # Converte graus para radianos
+var direction = Vector2(cos(angle), sin(angle))
+var velocity = direction * speed
+
+# Cálculo de ângulo a partir de vetor
+var vetor = Vector2(1, 1)
+var angulo = atan2(vetor.y, vetor.x)  # Retorna em radianos
+var angulo_graus = rad_to_deg(angulo)  # Converte para graus
+\end{lstlisting}
+
+\begin{tipbox}
+\textbf{No Breakout:} Usamos trigonometria para calcular o ângulo de rebatida da bola. Quanto mais longe do centro da raquete, mais inclinado o ângulo.
+\end{tipbox}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 2.4: Calculadora de Ângulos}
+\begin{enumerate}
+    \item Crie um script que receba um ângulo em graus
+    \item Converta para radianos
+    \item Calcule seno e cosseno
+    \item Crie um vetor direção usando esses valores
+    \item Mostre o vetor normalizado
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 2.5: Bola com Direção Aleatória}
+\begin{enumerate}
+    \item Crie uma bola que se move em direção aleatória
+    \item Gere um ângulo aleatório entre -45 e 45 graus
+    \item Use \texttt{sin()} e \texttt{cos()} para criar o vetor velocidade
+    \item Garanta que a bola sempre vá para cima (Y negativo)
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 2.6: Rebatida Simples}
+\begin{enumerate}
+    \item Crie uma bola e uma parede
+    \item Quando a bola colidir, calcule o ângulo de reflexão
+    \item Use a normal da colisão para refletir a velocidade
+    \item Implemente \texttt{velocity.bounce(normal)}
+\end{enumerate}
+\end{exercisebox}
+
+% ============================================
+% MÓDULO 3
+% ============================================
+\newpage
+\module{Módulo 3: Input e Controle}
+\duration{1 aula}
+
+\subsection{Sistema de Input do Godot}
+
+\begin{theorybox}
+\textbf{Input Actions (Ações de Entrada)}
+
+\begin{itemize}
+    \item Configuradas em \textbf{Project Settings > Input Map}
+    \item Permitem mapear teclas, botões, etc.
+    \item Exemplo: "move\_left", "move\_right", "jump"
+\end{itemize}
+
+\textbf{Como Configurar:}
+\begin{enumerate}
+    \item Vá em \textbf{Project > Project Settings}
+    \item Aba \textbf{Input Map}
+    \item Adicione nova ação (ex: "move\_left")
+    \item Clique no "+" e escolha a tecla
+\end{enumerate}
+\end{theorybox}
+
+\textbf{Verificando Input no Código:}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Input]
+# Verificar se tecla está pressionada
+if Input.is_action_pressed("move_left"):
+    position.x -= speed * delta
+
+# Verificar força da ação (0.0 a 1.0)
+var strength = Input.get_action_strength("move_right")
+velocity.x = strength * speed
+
+# Verificar se tecla foi pressionada neste frame
+if Input.is_action_just_pressed("jump"):
+    jump()
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - Input]
+// Verificar se tecla está pressionada
+if (Input.IsActionPressed("move_left"))
+{
+    Position = new Vector2(Position.X - speed * (float)delta, Position.Y);
+}
+
+// Verificar força da ação (0.0 a 1.0)
+float strength = Input.GetActionStrength("move_right");
+Velocity = new Vector2(strength * speed, Velocity.Y);
+
+// Verificar se tecla foi pressionada neste frame
+if (Input.IsActionJustPressed("jump"))
+{
+    Jump();
+}
+\end{lstlisting}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 3.1: Objeto Controlado por Teclado}
+\begin{enumerate}
+    \item Crie um objeto que se move com as setas ou WASD
+    \item Configure as ações no Input Map
+    \item Use \texttt{get\_action\_strength()} para movimento suave
+    \item Limite o movimento dentro da tela
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 3.2: Objeto Seguindo o Mouse}
+\begin{enumerate}
+    \item Crie um objeto que segue o cursor do mouse
+    \item Use \texttt{get\_global\_mouse\_position()}
+    \item Calcule a direção e mova suavemente
+    \item Adicione um limite de velocidade máxima
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 3.3: Controles Múltiplos}
+\begin{enumerate}
+    \item Crie um objeto com múltiplos controles:
+    \begin{itemize}
+        \item Setas: movimento básico
+        \item WASD: movimento alternativo
+        \item Mouse: movimento direto
+    \end{itemize}
+    \item Implemente todos os métodos
+    \item Priorize mouse > WASD > Setas
+\end{enumerate}
+\end{exercisebox}
+
+% ============================================
+% MÓDULO 4
+% ============================================
+\newpage
+\module{Módulo 4: Física e Colisões}
+\duration{1-2 aulas}
+
+\subsection{Tipos de Corpos Físicos}
+
+\begin{theorybox}
+\textbf{CharacterBody2D}
+\begin{itemize}
+    \item Para objetos controlados pelo jogador
+    \item Movimento manual via código
+    \item Usa \texttt{move\_and\_slide()} para movimento com colisão
+    \item Exemplo: jogador, raquete, bola
+\end{itemize}
+
+\textbf{StaticBody2D}
+\begin{itemize}
+    \item Para objetos imóveis
+    \item Não se move, mas pode colidir
+    \item Exemplo: paredes, blocos, plataformas
+\end{itemize}
+
+\textbf{RigidBody2D}
+\begin{itemize}
+    \item Para objetos com física automática
+    \item Afetado por gravidade e forças
+    \item Exemplo: objetos que caem, projéteis
+\end{itemize}
+
+\textbf{CollisionShape2D}
+\begin{itemize}
+    \item Define a forma de colisão
+    \item Deve ser filho do corpo físico
+    \item Formas: Rectangle, Circle, Capsule, etc.
+\end{itemize}
+\end{theorybox}
+
+\begin{importantbox}
+\textbf{No Breakout:}
+\begin{itemize}
+    \item Bola: \texttt{CharacterBody2D}
+    \item Raquete: \texttt{CharacterBody2D}
+    \item Blocos: \texttt{StaticBody2D}
+    \item Paredes: \texttt{StaticBody2D}
+\end{itemize}
+\end{importantbox}
+
+\subsection{Detecção de Colisões}
+
+\begin{theorybox}
+\textbf{move\_and\_slide()}
+\begin{itemize}
+    \item Move o objeto e detecta colisões automaticamente
+    \item Retorna \texttt{true} se houve colisão
+    \item Armazena informações das colisões
+\end{itemize}
+
+\textbf{Normal da Colisão:}
+\begin{itemize}
+    \item Vetor perpendicular à superfície
+    \item Aponta para fora do objeto colidido
+    \item Usado para calcular reflexão
+\end{itemize}
+\end{theorybox}
+
+\textbf{Obtendo Informações de Colisão:}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Detecção de Colisão]
+func _physics_process(delta):
+    move_and_slide()
+    
+    # Verificar todas as colisões
+    for i in get_slide_collision_count():
+        var collision = get_slide_collision(i)
+        var collider = collision.get_collider()  # Objeto colidido
+        var normal = collision.get_normal()      # Normal da colisão
+        
+        # Verificar tipo do objeto
+        if collider.is_in_group("blocks"):
+            # Colidiu com um bloco
+            collider.queue_free()  # Destrói o bloco
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - Detecção de Colisão]
+public override void _PhysicsProcess(double delta)
+{
+    MoveAndSlide();
+    
+    // Verificar todas as colisões
+    for (int i = 0; i < GetSlideCollisionCount(); i++)
+    {
+        var collision = GetSlideCollision(i);
+        var collider = collision.GetCollider();  // Objeto colidido
+        var normal = collision.GetNormal();      // Normal da colisão
+        
+        // Verificar tipo do objeto
+        if (collider is Node node && node.IsInGroup("blocks"))
+        {
+            // Colidiu com um bloco
+            node.QueueFree();  // Destrói o bloco
+        }
+    }
+}
+\end{lstlisting}
+
+\textbf{Reflexão (Bounce):}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Reflexão]
+var reflected = velocity.bounce(normal)
+velocity = reflected.normalized() * speed
+\end{lstlisting}
+
+\begin{theorybox}
+\textbf{Grupos (Groups)}
+\begin{itemize}
+    \item Permitem identificar objetos por categoria
+    \item Adicione: \texttt{add\_to\_group("blocks")} (GDScript) ou \texttt{AddToGroup("blocks")} (C\#)
+    \item Verifique: \texttt{is\_in\_group("blocks")} (GDScript) ou \texttt{IsInGroup("blocks")} (C\#)
+\end{itemize}
+
+\textbf{No Breakout:} Grupos usados: "paddle", "blocks", "walls", "ceiling", "game\_manager"
+\end{theorybox}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 4.1: Objeto com Colisão}
+\begin{enumerate}
+    \item Crie um \texttt{CharacterBody2D}
+    \item Adicione \texttt{CollisionShape2D} como filho
+    \item Configure uma forma retangular
+    \item Adicione movimento e teste colisão com paredes
+    \item Use \texttt{move\_and\_slide()}
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 4.2: Múltiplos Objetos Colidindo}
+\begin{enumerate}
+    \item Crie vários objetos estáticos
+    \item Crie um objeto dinâmico que colide com eles
+    \item Detecte qual objeto foi colidido
+    \item Imprima o nome do objeto colidido
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 4.3: Bola Rebote Simples}
+\begin{enumerate}
+    \item Crie uma bola que se move
+    \item Crie paredes nas bordas da tela
+    \item Quando colidir, reflete a velocidade
+    \item Use \texttt{velocity.bounce(normal)}
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 4.4: Destruição de Objetos}
+\begin{enumerate}
+    \item Crie vários blocos estáticos
+    \item Adicione-os ao grupo "blocks"
+    \item Crie uma bola que, ao colidir, destrói o bloco
+    \item Use \texttt{queue\_free()} para destruir
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 4.5: Rebatida com Ângulo}
+\begin{enumerate}
+    \item Crie uma raquete horizontal
+    \item Quando a bola colidir, calcule o ângulo baseado na posição de impacto
+    \item Quanto mais longe do centro, mais inclinado
+    \item Use trigonometria para calcular nova direção
+\end{enumerate}
+\end{exercisebox}
+
+% ============================================
+% MÓDULO 5
+% ============================================
+\newpage
+\module{Módulo 5: Interface de Usuário (UI)}
+\duration{1 aula}
+
+\subsection{Criando UI no Godot}
+
+\begin{theorybox}
+\textbf{Nós de UI}
+\begin{itemize}
+    \item \texttt{Control}: Nó base para UI
+    \item \texttt{Label}: Exibe texto
+    \item \texttt{Button}: Botão clicável
+    \item \texttt{VBoxContainer} / \texttt{HBoxContainer}: Organiza elementos
+    \item \texttt{MarginContainer}: Adiciona margens
+\end{itemize}
+
+\textbf{Criando UI:}
+\begin{enumerate}
+    \item Adicione um nó \texttt{Control} como container
+    \item Adicione elementos filhos (Label, Button, etc.)
+    \item Configure posição e tamanho
+    \item Conecte sinais (ex: botão pressionado)
+\end{enumerate}
+\end{theorybox}
+
+\textbf{Acessando Elementos UI:}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - Acesso a UI]
+@onready var score_label: Label = $UI/ScoreLabel
+@onready var lives_label: Label = $UI/LivesLabel
+
+func _ready():
+    score_label.text = "Pontuação: 0"
+    lives_label.text = "Vidas: 3"
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - Acesso a UI]
+private Label scoreLabel;
+private Label livesLabel;
+
+public override void _Ready()
+{
+    scoreLabel = GetNode<Label>("UI/ScoreLabel");
+    livesLabel = GetNode<Label>("UI/LivesLabel");
+    
+    scoreLabel.Text = "Pontuação: 0";
+    livesLabel.Text = "Vidas: 3";
+}
+\end{lstlisting}
+
+\begin{tipbox}
+\textbf{No Breakout:} UI mostra pontuação, vidas, game over, botão de reiniciar
+\end{tipbox}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 5.1: Contador Visual}
+\begin{enumerate}
+    \item Crie uma cena com um \texttt{Label}
+    \item Adicione um script que conte de 0 a 100
+    \item Atualize o texto do label a cada segundo
+    \item Formate o texto: "Contador: 50"
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 5.2: Painel de Informações}
+\begin{enumerate}
+    \item Crie uma UI com:
+    \begin{itemize}
+        \item Label de pontuação
+        \item Label de vidas
+        \item Label de tempo
+    \end{itemize}
+    \item Atualize os valores dinamicamente
+    \item Use \texttt{VBoxContainer} para organizar
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 5.3: Botão Funcional}
+\begin{enumerate}
+    \item Crie um botão na UI
+    \item Conecte o sinal \texttt{pressed}
+    \item Quando clicado, reinicie a cena
+    \item Use \texttt{get\_tree().reload\_current\_scene()}
+\end{enumerate}
+\end{exercisebox}
+
+% ============================================
+% MÓDULO 6
+% ============================================
+\newpage
+\module{Módulo 6: Gerenciamento de Estado e Comunicação entre Objetos}
+\duration{1 aula}
+
+\subsection{Singleton e GameManager}
+
+\begin{theorybox}
+\textbf{O que é um GameManager?}
+\begin{itemize}
+    \item Objeto que gerencia o estado global do jogo
+    \item Controla: pontuação, vidas, fim de jogo
+    \item Comunica com outros objetos
+\end{itemize}
+
+\textbf{Comunicação entre Objetos:}
+
+\textbf{1. Referência Direta}
+\begin{itemize}
+    \item Use grupos para encontrar objetos
+    \item \texttt{get\_tree().get\_first\_node\_in\_group("game\_manager")}
+    \item \texttt{GetTree().GetFirstNodeInGroup("game\_manager")} (C\#)
+\end{itemize}
+
+\textbf{2. Grupos}
+\begin{itemize}
+    \item Organize objetos por categoria
+    \item Facilita busca e comunicação
+\end{itemize}
+
+\textbf{3. Sinais (Signals)}
+\begin{itemize}
+    \item Sistema de eventos do Godot
+    \item Um objeto emite um sinal, outros escutam
+    \item Desacopla objetos
+\end{itemize}
+\end{theorybox}
+
+\textbf{Exemplo de Comunicação:}
+
+\begin{lstlisting}[language=GDScript, caption=GDScript - GameManager]
+# GDScript
+var game_manager: Node
+
+func _ready():
+    game_manager = get_tree().get_first_node_in_group("game_manager")
+    game_manager.on_block_destroyed()
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSharp, caption=C\# - GameManager]
+// C#
+private GameManager gameManager;
+
+public override void _Ready()
+{
+    gameManager = GetTree().GetFirstNodeInGroup("game_manager") as GameManager;
+    gameManager.OnBlockDestroyed();
+}
+\end{lstlisting}
+
+\begin{tipbox}
+\textbf{No Breakout:} GameManager gerencia pontuação e vidas. Bola notifica GameManager quando destrói bloco. GameManager verifica condições de vitória/derrota.
+\end{tipbox}
+
+\subsubsection{Exercícios Práticos}
+
+\begin{exercisebox}
+\textbf{Exercício 6.1: Sistema de Pontuação}
+\begin{enumerate}
+    \item Crie um GameManager
+    \item Adicione variável de pontuação
+    \item Crie um método \texttt{add\_points(points)}
+    \item Atualize a UI quando pontos mudarem
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 6.2: Comunicação entre Objetos}
+\begin{enumerate}
+    \item Crie dois objetos: ObjetoA e ObjetoB
+    \item ObjetoA deve encontrar ObjetoB usando grupos
+    \item ObjetoA chama um método de ObjetoB
+    \item ObjetoB responde alterando sua cor
+\end{enumerate}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício 6.3: Sistema de Vidas}
+\begin{enumerate}
+    \item Crie um sistema de vidas no GameManager
+    \item Quando vida chegar a 0, mostre "Game Over"
+    \item Adicione botão de reiniciar
+    \item Implemente reinício da cena
+\end{enumerate}
+\end{exercisebox}
+
+% ============================================
+% PROJETO FINAL
+% ============================================
+\newpage
+\module{Projeto Final: Breakout Clone}
+
+\begin{checklistbox}
+\textbf{Fase 1: Estrutura Básica}
+\begin{itemize}[leftmargin=*]
+    \item[$\square$] Criar cena principal (Main.tscn)
+    \item[$\square$] Criar cena da bola (Ball.tscn)
+    \item[$\square$] Criar cena da raquete (Paddle.tscn)
+    \item[$\square$] Criar cena do bloco (Block.tscn)
+\end{itemize}
+\end{checklistbox}
+
+\begin{checklistbox}
+\textbf{Fase 2: Movimento}
+\begin{itemize}[leftmargin=*]
+    \item[$\square$] Implementar movimento da bola
+    \item[$\square$] Implementar controle da raquete
+    \item[$\square$] Adicionar limites de tela
+\end{itemize}
+\end{checklistbox}
+
+\begin{checklistbox}
+\textbf{Fase 3: Colisões}
+\begin{itemize}[leftmargin=*]
+    \item[$\square$] Colisão bola-parede (rebote)
+    \item[$\square$] Colisão bola-raquete (rebote com ângulo)
+    \item[$\square$] Colisão bola-bloco (destruição)
+\end{itemize}
+\end{checklistbox}
+
+\begin{checklistbox}
+\textbf{Fase 4: Gameplay}
+\begin{itemize}[leftmargin=*]
+    \item[$\square$] Sistema de pontuação
+    \item[$\square$] Sistema de vidas
+    \item[$\square$] Criação de blocos
+    \item[$\square$] Detecção de vitória/derrota
+\end{itemize}
+\end{checklistbox}
+
+\begin{checklistbox}
+\textbf{Fase 5: UI e Polimento}
+\begin{itemize}[leftmargin=*]
+    \item[$\square$] Interface de usuário
+    \item[$\square$] Tela de game over
+    \item[$\square$] Botão de reiniciar
+    \item[$\square$] Ajustes de dificuldade
+\end{itemize}
+\end{checklistbox}
+
+% ============================================
+% EXERCÍCIOS DE REVISÃO
+% ============================================
+\newpage
+\section*{Exercícios de Revisão}
+
+\begin{exercisebox}
+\textbf{Exercício R1: Mini-Jogo de Rebatida}
+
+Crie um jogo simples onde:
+\begin{itemize}
+    \item Uma bola se move automaticamente
+    \item Uma raquete controlada pelo jogador rebate a bola
+    \item Objetivo: manter a bola em jogo o máximo de tempo possível
+    \item Mostre tempo de sobrevivência na tela
+\end{itemize}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício R2: Destruidor de Blocos}
+
+Crie um jogo onde:
+\begin{itemize}
+    \item Vários blocos são criados na tela
+    \item Uma bola destrói os blocos ao colidir
+    \item Conte quantos blocos foram destruídos
+    \item Mostre mensagem quando todos forem destruídos
+\end{itemize}
+\end{exercisebox}
+
+\begin{exercisebox}
+\textbf{Exercício R3: Sistema Completo}
+
+Combine os exercícios anteriores:
+\begin{itemize}
+    \item Bola que se move
+    \item Raquete controlável
+    \item Blocos que são destruídos
+    \item Sistema de pontuação
+    \item Sistema de vidas
+    \item UI completa
+\end{itemize}
+\end{exercisebox}
+
+% ============================================
+% OBJETIVOS E RECURSOS
+% ============================================
+\newpage
+\section*{Objetivos de Aprendizado}
+
+Ao final deste plano de aula, os alunos devem ser capazes de:
+
+\begin{itemize}[leftmargin=*, itemsep=0.3cm]
+    \item[\faCheckCircle] Entender conceitos fundamentais de programação
+    \item[\faCheckCircle] Trabalhar com o Godot Engine
+    \item[\faCheckCircle] Implementar movimento e física
+    \item[\faCheckCircle] Detectar e responder a colisões
+    \item[\faCheckCircle] Criar interfaces de usuário
+    \item[\faCheckCircle] Gerenciar estado do jogo
+    \item[\faCheckCircle] Comunicar entre objetos
+    \item[\faCheckCircle] Desenvolver um jogo completo do zero
+\end{itemize}
+
+\section*{Recursos Adicionais}
+
+\begin{theorybox}
+\textbf{Documentação Oficial}
+\begin{itemize}
+    \item \href{https://docs.godotengine.org/}{Godot Docs}
+    \item \href{https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/index.html}{GDScript Reference}
+    \item \href{https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/index.html}{C\# Documentation}
+\end{itemize}
+
+\textbf{Tutoriais Recomendados}
+\begin{itemize}
+    \item Godot 2D Game Tutorial (oficial)
+    \item Heartbeast Action RPG Tutorial
+    \item GDQuest Learn GDScript
+\end{itemize}
+
+\textbf{Ferramentas Úteis}
+\begin{itemize}
+    \item Godot Engine (gratuito)
+    \item Visual Studio Code (com extensão Godot)
+    \item GIMP ou Photoshop (para sprites, opcional)
+\end{itemize}
+\end{theorybox}
+
+% ============================================
+% CRONOGRAMA E AVALIAÇÃO
+% ============================================
+\newpage
+\section*{Cronograma Sugerido}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{11cm}|}
+\hline
+\textbf{Aula} & \textbf{Conteúdo} \\
+\hline
+1-2 & \textbf{Módulo 1 (Fundamentos)} \\
+    & Teoria: 30 min | Exercícios: 60 min | Revisão: 30 min \\
+\hline
+3 & \textbf{Módulo 2 (Matemática)} \\
+    & Teoria: 30 min | Exercícios: 60 min | Revisão: 30 min \\
+\hline
+4 & \textbf{Módulo 3 (Input)} \\
+    & Teoria: 20 min | Exercícios: 70 min | Revisão: 30 min \\
+\hline
+5-6 & \textbf{Módulo 4 (Física)} \\
+    & Teoria: 40 min | Exercícios: 80 min | Revisão: 30 min \\
+\hline
+7 & \textbf{Módulo 5 (UI)} \\
+    & Teoria: 30 min | Exercícios: 60 min | Revisão: 30 min \\
+\hline
+8 & \textbf{Módulo 6 (GameManager)} \\
+    & Teoria: 30 min | Exercícios: 60 min | Revisão: 30 min \\
+\hline
+9-10 & \textbf{Projeto Final} \\
+      & Implementação: 120 min | Testes e ajustes: 60 min \\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Avaliação}
+
+\begin{importantbox}
+\textbf{Critérios de Avaliação do Projeto Final}
+
+\textbf{Funcionalidade (40\%)}
+\begin{itemize}
+    \item Bola se move corretamente
+    \item Raquete controlável
+    \item Colisões funcionam
+    \item Blocos são destruídos
+    \item Sistema de pontuação
+    \item Sistema de vidas
+    \item Detecção de vitória/derrota
+\end{itemize}
+
+\textbf{Código (30\%)}
+\begin{itemize}
+    \item Código organizado e comentado
+    \item Uso adequado de variáveis e funções
+    \item Sem código duplicado
+    \item Boas práticas de programação
+\end{itemize}
+
+\textbf{Interface (20\%)}
+\begin{itemize}
+    \item UI funcional e clara
+    \item Informações visíveis
+    \item Botões funcionais
+\end{itemize}
+
+\textbf{Criatividade (10\%)}
+\begin{itemize}
+    \item Melhorias ou features extras
+    \item Visual personalizado
+    \item Mecânicas adicionais
+\end{itemize}
+\end{importantbox}
+
+% ============================================
+% RODAPÉ FINAL
+% ============================================
+\vfill
+\begin{center}
+\begin{tcolorbox}[colback=primaryblue!10, colframe=primaryblue, width=0.9\textwidth, center]
+\centering
+\Large\bfseries\color{primaryblue}
+Boa sorte com o desenvolvimento! \faRocket
+
+\vspace{0.5cm}
+\normalsize
+\textit{Este plano de aula foi desenvolvido para o curso de Programação de Jogos Digitais no SENAI.}
+\end{tcolorbox}
+\end{center}
+
+\end{document}
+
